@@ -1,5 +1,6 @@
 package com.dsa.graph;
 
+import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
 
@@ -26,7 +27,7 @@ public class AdjacencyListGraph {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(V + "vertices , " + E + " edges \n");
+		sb.append(V + " vertices , " + E + " edges \n");
 		for(int v = 0 ; v < V ; v++) {
 			sb.append(v + " : ");
 			for(int w : adj[v]) {
@@ -54,6 +55,24 @@ public class AdjacencyListGraph {
 		}
 	}
 	
+	public void dfs(int s) {
+		boolean[] visited = new boolean[V];
+		Stack<Integer> stack = new Stack<>();
+		stack.push(s);
+		while(!stack.isEmpty()) {
+			int u = stack.pop();
+			if(!visited[u]) {
+				visited[u] = true;
+				System.out.print(u + " ");
+				for(int v : adj[u]) {
+					if(!visited[v]) {
+						stack.push(v);
+					}
+				}
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		AdjacencyListGraph g = new AdjacencyListGraph(5);
 		g.addEdge(0, 1);
@@ -62,7 +81,10 @@ public class AdjacencyListGraph {
 		g.addEdge(3, 0);
 		g.addEdge(2, 4);
 		System.out.println(g);
+		System.out.print("BFS : ");
 		g.bfs(0);
+		System.out.print("\n\nDFS : ");
+		g.dfs(0);
 	}
 	
 }
