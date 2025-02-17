@@ -73,6 +73,25 @@ public class AdjacencyListGraph {
 		}
 	}
 	
+	public void dfs() {
+		boolean[] visited = new boolean[V];
+	    for (int v = 0; v < V; v++) {
+	    	if (!visited[v]) {
+	    		dfs(v, visited);
+	        }
+	    }
+	}
+
+	private void dfs(int v, boolean[] visited) {
+		visited[v] = true;
+	    System.out.print(v + " ");
+	    for (int w : adj[v]) {
+	    	if (!visited[w]) {
+	    		dfs(w, visited);
+	        }
+	    }
+	}
+	
 	public static void main(String[] args) {
 		AdjacencyListGraph g = new AdjacencyListGraph(5);
 		g.addEdge(0, 1);
@@ -80,11 +99,12 @@ public class AdjacencyListGraph {
 		g.addEdge(2, 3);
 		g.addEdge(3, 0);
 		g.addEdge(2, 4);
-		System.out.println(g);
-		System.out.print("BFS : ");
-		g.bfs(0);
-		System.out.print("\n\nDFS : ");
-		g.dfs(0);
+		// System.out.println(g);
+		// System.out.print("BFS : ");
+		// g.bfs(0);
+		// System.out.print("\n\nDFS : ");
+		// g.dfs(0);
+		g.dfs();
 	}
 	
 }
